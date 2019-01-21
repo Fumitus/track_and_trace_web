@@ -1,0 +1,6 @@
+{% extends "layout.html" %}
+{% block content %}
+    {% for product in products %}
+        <h1>{{ product.product_name }}, {{ product.product_batch }} </h1>
+    {% endfor %}
+{% endblock content %}

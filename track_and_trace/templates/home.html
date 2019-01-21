@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+{% block content %}
+    {% for code in codes %}
+    <article class="media content-section">
+            <div class="media-body">
+              <div class="article-metadata">
+                {% for product in products %}
+                <a class="mr-2" href="#"> {{ product.product_name }}:</a>
+                <small class="text-muted">product batch , expire date</small>
+                {% endfor %}
+              </div>
+              <h2><a class="article-title" href="#">Old product code: {{ code.code }}</a></h2>
+              <h2><a class="article-title" href="#">New product code: {{ code.new_code }}</a></h2>
+              <p class="article-content">Operator/User: {{ code.user_id }}</p>
+            </div>
+    </article>
+    {% endfor %}
+{% endblock content %}
