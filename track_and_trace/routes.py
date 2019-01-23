@@ -3,14 +3,16 @@ from track_and_trace import app, db
 from track_and_trace.forms import RegistrationForm, LoginForm, CodesForm, ProductForm
 from track_and_trace.models import User, Product, Codes, Box_codes, Pallet_codes
 from flask_login import login_user, current_user, logout_user, login_required
-
+from new_code import GenerateNewCode
 
 @app.route("/")
 @app.route("/home")
 def home():
+    form = ProductForm()
     codes = Codes.query.all()
     products = Product.query.all()
-    return render_template('home.html', codes=codes, products=products)
+
+    return render_template('home.html', codes=codes, products=products, new_code=new_code)
 
 @app.route("/about")
 def about():
@@ -60,10 +62,17 @@ def account():
 @login_required
 def new_code():
     form = CodesForm()
+    codes = Codes.query.all()
+    for code in codes:
+        split_code = code.code.split('/')
+        if split_code[0].lower() == form.product_name.data.lower() and split_code[1].lower() == form.product_batch.data.lower() and split_code[2].lower() == form.expire_date.data.lower():
+            new_code = GenerateNewCode()
+            return new_code
+
     if form.validate_on_submit():
         product_id=Product.query.first()
         code = Codes(product_id=product_id.id, code=form.input_code.data, 
-                        new_code='need_to_be_generated', user_id=current_user.username)
+                        new_code=new_code, user_id=current_user.username)
         db.session.add(code)
         db.session.commit()
         flash('Code information was entered to Data Base!', 'success')
@@ -74,7 +83,8 @@ def new_code():
 @login_required
 def new_product():
     products = Product.query.all()
-    form = ProductForm()  
+    form = ProductForm()
+      
     if form.validate_on_submit():
         product = Product(product_name=form.product_name.data, 
                             product_batch=form.product_batch.data, 

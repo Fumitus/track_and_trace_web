@@ -4,14 +4,14 @@
     <article class="media content-section">
             <div class="media-body">
               <div class="article-metadata">
-                {% for product in products %}
-                <a class="mr-2" href="#"> {{ product.product_name }}:</a>
-                <small class="text-muted">product batch , expire date</small>
-                {% endfor %}
+                
+                <a class="mr-2" href="#"> Operator: {{ code.user_id }}</a>
+                   <small class="text-muted"></small>
               </div>
               <h2><a class="article-title" href="#">Old product code: {{ code.code }}</a></h2>
               <h2><a class="article-title" href="#">New product code: {{ code.new_code }}</a></h2>
-              <p class="article-content">Operator/User: {{ code.user_id }}</p>
+              <a class="mr-2" href="#"> Product data extracted from code:</a>
+              <p class="article-content">Product name: {{ code.code.split('/')[0] }}; Product batch: {{ code.code.split('/')[1] }}; Product expire date: {{ code.code.split('/')[2] }}</p>
             </div>
     </article>
     {% endfor %}
