@@ -3,9 +3,25 @@ import argparse
 import csv
 import os.path
 from track_and_trace.forms import CodesForm, ProductForm
+from track_and_trace import app, db
+from track_and_trace.models import User, Product, Codes
 
+class CheckEnteredCode():
+    def check_entered_code(self):
+        products = Product.query.all()
+        codes = Codes.query.all()
+        product_name_from_input = products[-1].product_name.lower()
+        product_batch_from_input = products[-1].product_batch.lower()
+        product_expire_from_input = products[-1].expire_date.lower()
+        for code in codes:
+            split_code = code.code.split('/')
+            if split_code[0].lower() == product_name_from_input and split_code[1].lower() == product_batch_from_input and split_code[2].lower() == product_expire_from_input:
+                new_code = GenerateNewCode()
+                return new_code
+            else:
+                print('Kodas nesugeneruotas. Patikrinkite ar kodas autenti6kas')
 
-class GenerateNewCode():
+class GenerateNewCode():  
     def read_codes(self, filename="static/codes.txt"):
         """
         Function to read unique code from file
@@ -30,7 +46,7 @@ class GenerateNewCode():
             f.write(code_to_delete + "\n")
             
         
-    def join_product_code_data(self, name, batch, expire):
+    def join_product_code_data(self):
         """
         Function to join product data from input
         """
@@ -91,3 +107,8 @@ class GenerateNewCode():
             )
 
 
+
+    code = read_codes
+    product = join_product_code_data
+    product_code = join_product_code
+    new_code = CheckEnteredCode()
