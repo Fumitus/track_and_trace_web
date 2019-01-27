@@ -8,7 +8,6 @@ from track_and_trace.new_code import GenerateNewCode, CheckEnteredCode
 @app.route("/")
 @app.route("/home")
 def home():
-    form = ProductForm()
     codes = Codes.query.all()
     products = Product.query.all()
 
