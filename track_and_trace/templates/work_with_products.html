@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 {% extends "layout.html" %}
 {% block content %}
     <div class="content-section">
@@ -51,58 +50,4 @@
             </div>
         </form>    
     </div> 
-=======
-{% extends "layout.html" %}
-{% block content %}
-    <div class="content-section">
-        <form method="POST" action="">
-            {{ form.hidden_tag() }}
-            <fieldset class="form-group">
-                <legend class="border-bottom mb-4">New product data</legend>
-                <div class="form-group">
-                    {{ form.product_name.label(class="form-control-label") }}
-                    {% if form.product_name.errors %}
-                        {{ form.product_name(class="form-control form-control-lg is-invalid") }}
-                        <div class="invalid-feedback">
-                            {% for error in form.product_name.errors %}
-                                <span>{{ error }}</span>
-                            {% endfor %}
-                        </div>
-                    {% else %}
-                        {{ form.product_name(class="form-control form-control-lg") }}
-                    {% endif %}
-                </div>
-                <div class="form-group">
-                    {{ form.product_batch.label(class="form-control-label") }}
-                    {% if form.product_batch.errors %}
-                        {{ form.product_batch(class="form-control form-control-lg is-invalid") }}
-                        <div class="invalid-feedback">
-                            {% for error in form.product_batch.errors %}
-                                <span>{{ error }}</span>
-                            {% endfor %}
-                        </div>
-                    {% else %}
-                        {{ form.product_batch(class="form-control form-control-lg") }}
-                    {% endif %}
-                </div>
-                <div class="form-group">
-                    {{ form.expire_date.label(class="form-control-label") }}
-                    {% if form.expire_date.errors %}
-                        {{ form.expire_date(class="form-control form-control-lg is-invalid") }}
-                        <div class="invalid-feedback">
-                            {% for error in form.expire_date.errors %}
-                                <span>{{ error }}</span>
-                            {% endfor %}
-                        </div>
-                    {% else %}
-                        {{ form.expire_date(class="form-control form-control-lg") }}
-                    {% endif %}
-                </div>
-            </fieldset>
-            <div class="form-group">
-                    {{ form.submit(class="btn btn-outline-info") }}
-            </div>
-        </form>    
-    </div> 
->>>>>>> 05b65c03628311be22d7f5b2fbaf50c2b9c1cb3d
 {% endblock content %}
